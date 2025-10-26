@@ -113,6 +113,10 @@ public class Model extends Observable {
         // TODO: Modify this.board (and perhaps this.score) to account
         // for the tilt to the Side SIDE. If the board changed, set the
         // changed local variable to true.
+        // Use the helper function onlyNorthTilt to do this problem
+        this.board.setViewingPerspective(side);
+        changed = onlyNorthTilt();
+        this.board.setViewingPerspective(Side.NORTH);
 
         checkGameOver();
         if (changed) {
@@ -121,6 +125,44 @@ public class Model extends Observable {
         return changed;
     }
 
+    /** A helper function that is used to only consider one direction (North or in other word up) */
+    private boolean onlyNorthTilt(){
+        boolean changed;
+        changed = false;
+
+        for (int col = 0; col < this.board.size(); col++){
+            // Consider the displacement start from the second-largest row, since the last row will not move
+            int checkLine = this.board.size();
+            for (int row = this.board.size() - 2; row >= 0; row--) {
+                if (this.board.tile(col, row) == null) {
+                    continue;
+                }
+
+                Tile t = this.board.tile(col, row);
+                int tile_value = t.value();
+                int row_move = 0;
+                for (int above_row = row + 1; above_row < checkLine; above_row++) {
+                    if (this.board.tile(col, above_row) != null) {
+                        if (this.board.tile(col, above_row).value() == tile_value) {
+                            row_move++;
+                            checkLine = row + row_move;
+                        }
+                        break;
+                    }
+                    row_move++;
+                }
+
+                if (row_move != 0) {
+                    changed = true;
+                    boolean whetherMerge = this.board.move(col, row + row_move, t);
+                    if (whetherMerge) {
+                        this.score = this.score + tile_value * 2;
+                    }
+                }
+            }
+        }
+        return changed;
+    }
     /** Checks if the game is over and sets the gameOver variable
      *  appropriately.
      */
@@ -137,7 +179,14 @@ public class Model extends Observable {
      *  Empty spaces are stored as null.
      * */
     public static boolean emptySpaceExists(Board b) {
-        // TODO: Fill in this function.
+        int size = b.size();
+        for (int i = 0; i < size; i++){
+            for (int j = 0; j < size; j++){
+                if(b.tile(i,j) == null){
+                    return true;
+                }
+            }
+        }
         return false;
     }
 
@@ -147,7 +196,16 @@ public class Model extends Observable {
      * given a Tile object t, we get its value with t.value().
      */
     public static boolean maxTileExists(Board b) {
-        // TODO: Fill in this function.
+        int size = b.size();
+        for (int i = 0; i < size; i++){
+            for (int j = 0; j < size; j++){
+                if (b.tile(i,j) != null){
+                    if (b.tile(i,j).value() == MAX_PIECE){
+                        return true;
+                    }
+                }
+            }
+        }
         return false;
     }
 
@@ -155,10 +213,29 @@ public class Model extends Observable {
      * Returns true if there are any valid moves on the board.
      * There are two ways that there can be valid moves:
      * 1. There is at least one empty space on the board.
-     * 2. There are two adjacent tiles with the same value.
-     */
+     * 2. There are two adjacent tiles with the same value. */
     public static boolean atLeastOneMoveExists(Board b) {
-        // TODO: Fill in this function.
+        if (emptySpaceExists(b)){
+            return true;
+        }
+        else{
+            int size = b.size();
+            for (int i = 0; i < size; i++){
+                for (int j = 0; j < size; j++){
+                    /** tiles always looks for tiles that are below or at the right of it */
+                    if (i < size - 1){
+                        if (b.tile(i,j).value() == b.tile(i + 1, j).value()){
+                            return true;
+                        }
+                    }
+                    if (j < size - 1){
+                        if (b.tile(i,j).value() == b.tile(i, j + 1).value()){
+                            return true;
+                        }
+                    }
+                }
+            }
+        }
         return false;
     }
 
