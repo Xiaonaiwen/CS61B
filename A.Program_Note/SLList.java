@@ -48,6 +48,7 @@ public class SLList {
     }
 
     /** Adds x to the last of the list */
+    /** Really slow compares with addFirst */
     public void addLast(int x){
         // IntList p = this.list;
         IntList p = this.sentinel;
