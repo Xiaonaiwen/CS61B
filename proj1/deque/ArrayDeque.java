@@ -1,7 +1,5 @@
 package deque;
 
-import org.checkerframework.checker.units.qual.A;
-
 public class ArrayDeque<T> {
     T[] array;
     private int next_First;
