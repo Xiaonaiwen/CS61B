@@ -21,20 +21,16 @@ public class ArrayDeque<T> {
         T[] temp = array;
         array = (T[]) new Object[array_Size];
 
-        if (next_First == original_Size - 1) {
-            System.arraycopy(temp, 0, array, 0, size);
-        } else {
-            System.arraycopy(temp, next_First + 1, array, 0, original_Size - next_First - 1);
-            System.arraycopy(temp, 0, array, original_Size - next_First - 1, next_Last);
-        }
-        next_First = array_Size - 1;
-        next_Last = size;
+        System.arraycopy(temp, 0, array, 0, next_Last);
+        int remainingSize = original_Size - next_First - 1;
+        System.arraycopy(temp, next_First + 1, array, array_Size - remainingSize, remainingSize);
+        next_First = array_Size - remainingSize - 1;
     }
 
     /* Occurs when size <= array_Size//4*/
     private void reduce_Size() {
         int original_Size = array_Size;
-        array_Size = size * 2;
+        array_Size = array_Size / 4;
         T[] temp = array;
         array = (T[]) new Object[array_Size];
 
@@ -147,6 +143,9 @@ public class ArrayDeque<T> {
     }
 
     public T removeFirst() {
+        if (size == 0) {
+            return null;
+        }
         inverse_nextFirst();
         T temp = array[next_First];
         size -= 1;
@@ -157,6 +156,9 @@ public class ArrayDeque<T> {
     }
 
     public T removeLast() {
+        if (size == 0){
+            return null;
+        }
         inverse_nextLast();
         T temp = array[next_Last];
         size -= 1;
