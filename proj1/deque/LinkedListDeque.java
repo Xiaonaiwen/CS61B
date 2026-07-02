@@ -1,6 +1,5 @@
 package deque;
 
-import java.util.ArrayDeque;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
