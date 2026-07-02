@@ -228,7 +228,7 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
                 }
             }
         }
-        else if (o instanceof java.util.ArrayDeque<?>){
+        else if (o instanceof deque.ArrayDeque<?>){
             deque.ArrayDeque<?> temp = (deque.ArrayDeque<?>) o;
             if(temp.size() != this.size()){
                 return false;
