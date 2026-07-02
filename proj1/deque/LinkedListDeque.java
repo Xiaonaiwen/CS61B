@@ -4,7 +4,7 @@ import java.util.ArrayDeque;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class LinkedListDeque<T> implements Iterable<T>{
+public class LinkedListDeque<T> implements Iterable<T>, Deque<T>{
     private static class Node<E>{
         private Node<E> before;
         private Node<E> after;
@@ -59,11 +59,6 @@ public class LinkedListDeque<T> implements Iterable<T>{
          */
         addLast(item);
         dl = dl.before;
-    }
-
-    /** Returns true if deque is empty*/
-    public boolean isEmpty(){
-        return (size == 0);
     }
 
     /** Returns the size*/

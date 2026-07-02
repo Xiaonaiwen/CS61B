@@ -3,7 +3,7 @@ package deque;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class ArrayDeque<T> implements Iterable<T> {
+public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
     T[] array;
     private int next_First;
     private int next_Last;
@@ -103,10 +103,6 @@ public class ArrayDeque<T> implements Iterable<T> {
         if (next_First == next_Last) {
             increase_Size();
         }
-    }
-
-    public boolean isEmpty() {
-        return (size == 0);
     }
 
     public int size() {
