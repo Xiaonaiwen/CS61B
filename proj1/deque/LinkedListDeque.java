@@ -1,6 +1,10 @@
 package deque;
 
-public class LinkedListDeque<T>{
+import java.util.ArrayDeque;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+
+public class LinkedListDeque<T> implements Iterable<T>{
     private static class Node<E>{
         private Node<E> before;
         private Node<E> after;
@@ -144,15 +148,13 @@ public class LinkedListDeque<T>{
     }
 
     /** Gets the item at the given index using recursion*/
-    public T getRecursive(int index){
-        if (index >= size){
+    public T getRecursive(int index) {
+        if (index >= size) {
             return null;
-        }
-        else{
-            if (index == 0){
+        } else {
+            if (index == 0) {
                 return dl.value;
-            }
-            else{
+            } else {
                 LinkedListDeque next = new LinkedListDeque();
                 next.dl = this.dl.after;
                 next.size = this.size - 1;
@@ -161,5 +163,65 @@ public class LinkedListDeque<T>{
         }
     }
 
+    @Override
+    public Iterator<T> iterator() {
+        return new LinkedListIterator();
+    }
 
+    private class LinkedListIterator implements Iterator<T>{
+        private int index;
+        public LinkedListIterator(){
+            index = 0;
+        }
+        @Override
+        public boolean hasNext() {
+            return index < size;
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()){
+                throw new NoSuchElementException();
+            }
+            else{
+                T item = get(index);
+                index += 1;
+                return item;
+            }
+        }
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(o instanceof LinkedListDeque<?>){
+            LinkedListDeque<?> temp = (LinkedListDeque<?>) o;
+            if(temp.size() != this.size()){
+                return false;
+            }
+            else{
+                for (int i = 0; i < temp.size(); i++){
+                    if (temp.get(i) != this.get(i)){
+                        return false;
+                    }
+                }
+            }
+        }
+        else if (o instanceof ArrayDeque<?>){
+            deque.ArrayDeque<?> temp = (deque.ArrayDeque<?>) o;
+            if(temp.size() != this.size()){
+                return false;
+            }
+            else{
+                for (int i = 0; i < temp.size(); i++){
+                    if (temp.get(i) != this.get(i)){
+                        return false;
+                    }
+                }
+            }
+        }
+        else{
+            return false;
+        }
+        return true;
+    }
 }
