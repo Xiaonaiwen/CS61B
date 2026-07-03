@@ -215,7 +215,7 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
     }
 
     @Override
-    public boolean equals(Object o){
+    public boolean equals(Object o) {
         if (this == o) {
             return true;
         }
