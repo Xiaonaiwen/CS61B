@@ -41,12 +41,10 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
 
         if (nextFirst < nextLast) {
             System.arraycopy(temp, nextFirst + 1, array, 0, size);
-        }
-        else {
+        } else {
             if (nextFirst == originalSize - 1) {
                 System.arraycopy(temp, 0, array, 0, size);
-            }
-            else {
+            }  else {
                 System.arraycopy(temp, nextFirst + 1, array, 0, originalSize - nextFirst - 1);
                 System.arraycopy(temp, 0, array, originalSize - nextFirst - 1, nextLast);
             }
@@ -122,15 +120,13 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
                 System.out.print(" " + array[temp]);
                 temp += 1;
             }
-        }
-        else {
+        }  else {
             int temp = nextFirst + 1;
             if (temp == arraySize) {
                 temp = 0;
                 System.out.print(array[temp]);
                 temp += 1;
-            }
-            else {
+            } else {
                 System.out.print(array[temp]);
                 temp += 1;
                 while (temp < arraySize) {
@@ -220,25 +216,24 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
 
     @Override
     public boolean equals(Object o){
-      if (this == o) {
-          return true;
-      }
+        if (this == o) {
+            return true;
+        }
 
-      if (! (o instanceof Deque<?>)) {
-          return false;
-      }
+        if (!(o instanceof Deque<?>)) {
+            return false;
+        }
 
-      Deque<?> temp = (Deque<?>) o;
-      if (temp.size() != this.size()) {
-          return false;
-      }
-      else {
-          for (int i = 0; i < this.size; i++) {
-              if (!(temp.get(i)).equals(this.get(i))) {
-                  return false;
-              }
-          }
-      }
-      return true;
+        Deque<?> temp = (Deque<?>) o;
+        if (temp.size() != this.size()) {
+            return false;
+        } else {
+            for (int i = 0; i < this.size; i++) {
+                if (!(temp.get(i)).equals(this.get(i))) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
