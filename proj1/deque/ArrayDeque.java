@@ -87,22 +87,22 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
 
     /* Adds an item of type T to the front of the deque*/
     public void addFirst(T item) {
+        if (nextFirst == nextLast) {
+            increaseSize();
+        }
         array[nextFirst] = item;
         size += 1;
         moveNextFirst();
-        if (size == arraySize) {
-            increaseSize();
-        }
     }
 
     /*Adds an item of tpe T to the back of the deque*/
     public void addLast(T item) {
+        if (nextFirst == nextLast) {
+            increaseSize();
+        }
         array[nextLast] = item;
         size += 1;
         moveNextLast();
-        if (size == arraySize) {
-            increaseSize();
-        }
     }
 
     public int size() {
