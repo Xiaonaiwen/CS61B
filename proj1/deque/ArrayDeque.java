@@ -90,8 +90,7 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
         array[nextFirst] = item;
         size += 1;
         moveNextFirst();
-
-        if (nextFirst == nextLast) {
+        if (size == arraySize) {
             increaseSize();
         }
     }
@@ -101,8 +100,7 @@ public class ArrayDeque<T> implements Iterable<T>, Deque<T> {
         array[nextLast] = item;
         size += 1;
         moveNextLast();
-
-        if (nextFirst == nextLast) {
+        if (size == arraySize) {
             increaseSize();
         }
     }
