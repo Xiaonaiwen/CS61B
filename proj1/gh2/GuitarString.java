@@ -1,8 +1,6 @@
 package gh2;
 
-// TODO: uncomment the following import once you're ready to start this portion
 import deque.Deque;
-// TODO: maybe more imports
 
 //Note: This file will not compile until you complete the Deque implementations
 public class GuitarString {
@@ -13,16 +11,15 @@ public class GuitarString {
     private static final double DECAY = .996; // energy decay factor
 
     /* Buffer for storing sound data. */
-    // TODO: uncomment the following line once you're ready to start this portion
     private Deque<Double> buffer;
 
     /* Create a guitar string of the given frequency.  */
     public GuitarString(double frequency) {
-         int capacity = (int) Math.round(SR / frequency);
-         buffer = new deque.ArrayDeque<Double>();
-         for (int i = 0; i < capacity; i++) {
-             buffer.addLast(0.0);
-         }
+        int capacity = (int) Math.round(SR / frequency);
+        buffer = new deque.ArrayDeque<Double>();
+        for (int i = 0; i < capacity; i++) {
+            buffer.addLast(0.0);
+        }
     }
 
 
@@ -32,10 +29,8 @@ public class GuitarString {
         int capacity = buffer.size();
         for (int i = 0; i < capacity; i++) {
             buffer.removeFirst();
-        }
-        for (int i = 0; i < capacity; i++) {
             r = Math.random() - 0.5;
-            buffer.addFirst(r);
+            buffer.addLast(r);
         }
     }
 
@@ -43,14 +38,14 @@ public class GuitarString {
      * the Karplus-Strong algorithm.
      */
     public void tic() {
-        double first = buffer.get(0);
-        double second = buffer.get(1);
+        double first = buffer.removeFirst();
+        double second = buffer.get(0);
         double add = DECAY * 0.5 * (first + second);
         buffer.addLast(add);
     }
 
     /* Return the double at the front of the buffer. */
     public double sample() {
-        return buffer.removeFirst();
+        return buffer.get(0);
     }
 }
