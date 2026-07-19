@@ -1,0 +1,13 @@
+Enter # strings to insert into the maps: 100000000000000
+Please enter a positive integer: 10
+class bstmap.ULLMap: 0.02 sec
+class bstmap.BSTMap: 0.01 sec
+Java's Built-in TreeMap: 0.01 sec
+Java's Built-in HashMap: 0.01 sec
+
+Enter # strings to insert into the maps: 100000000000000
+Please enter a positive integer: 10
+class bstmap.ULLMap: 0.02 sec
+class bstmap.BSTMap: 0.01 sec
+Java's Built-in TreeMap: 0.01 sec
+Java's Built-in HashMap: 0.01 sec
